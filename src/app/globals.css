@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+  RoundTwo design tokens.
+  Warm industrial: warm off-white ground, graphite ink, one chartreuse accent
+  reserved for recovered/actionable moments (CTAs, revenue, "reopened" status).
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-instrument-sans);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand layer — used deliberately, never as page-wide decoration. */
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-field: var(--brand-field);
+  --color-recovered: var(--recovered);
+  --color-lost: var(--lost);
+  --color-lost-soft: var(--lost-soft);
+  --color-surface: var(--surface);
+  --color-hairline: var(--hairline);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --text-display: clamp(2.75rem, 1.35rem + 6vw, 5.75rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.055em;
+
+  --text-h2: clamp(2rem, 1.15rem + 3.6vw, 3.3125rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.04em;
+
+  --text-h3: clamp(1.25rem, 1.09rem + 0.7vw, 1.5rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.022em;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
+}
+
+:root {
+  --background: oklch(0.9577 0.0177 92.68); /* #F5F1E4 cream paper */
+  --foreground: oklch(0.2977 0.0076 128.75); /* #2C2E2A ink */
+
+  /* Elevation is a surface stack, not a shadow: cream -> white. */
+  --card: oklch(1 0 0); /* #FFFFFF */
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --surface: oklch(1 0 0);
+
+  --primary: oklch(0.2977 0.0076 128.75);
+  --primary-foreground: oklch(0.9577 0.0177 92.68);
+
+  --secondary: oklch(0.8918 0.0183 89.37); /* #E0DBCE sandstone */
+  --secondary-foreground: oklch(0.2977 0.0076 128.75);
+
+  --muted: oklch(0.8918 0.0183 89.37);
+  --muted-foreground: oklch(0.5031 0.0096 121.8); /* #63655F stone */
+
+  /* shadcn's --accent is the neutral hover token, intentionally NOT the brand. */
+  --accent: oklch(0.9219 0.0177 91);
+  --accent-foreground: oklch(0.2977 0.0076 128.75);
+
+  --destructive: oklch(0.5579 0.1717 31.41); /* #C4402C */
+
+  --hairline: oklch(0.8727 0.0014 106.43); /* #D5D5D4 */
+  --border: oklch(0.8727 0.0014 106.43);
+  --border-strong: oklch(0.8918 0.0183 89.37);
+  --input: oklch(0.8727 0.0014 106.43);
+  --ring: oklch(0.2977 0.0076 128.75);
+
+  --brand: oklch(0.9414 0.2048 120.69); /* #D9FF43 — small accents only */
+  --brand-strong: oklch(0.896 0.2059 121.17); /* #C9F02A */
+  /*
+    Large colour fields use a calmer sibling. At full bleed the electric
+    chartreuse reads as highlighter; this keeps the same hue family at the
+    reference system's chroma so the accent still pops against it.
+  */
+  --brand-field: oklch(0.8963 0.1629 122.87); /* #C9EE6B */
+  --brand-foreground: oklch(0.2977 0.0076 128.75);
+  --brand-soft: oklch(0.9414 0.2048 120.69 / 20%);
+
+  --recovered: oklch(0.4769 0.0881 153.61); /* #2F6B45 */
+  --lost: oklch(0.5579 0.1717 31.41); /* #C4402C, readable on cream */
+  --lost-soft: oklch(0.7158 0.1783 29.77); /* #FF705D coral, fills only */
+
+  /* Sticker-soft: generous rounding is the signature of this system. */
+  --radius: 1.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Anchor links must clear the sticky header. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: var(--brand-foreground);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-weight: 500;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility label-mono {
+  @apply font-mono text-[0.6875rem] font-medium tracking-[0.14em] uppercase;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hairline rules that read as drafting marks rather than card borders. */
+/*
+  Baseline-anchored emphasis rule. Uses real text decoration so the bar sits
+  the same distance under every wrapped line, unlike a background gradient.
+*/
+@utility marker-rule {
+  color: inherit;
+  background: transparent;
+  text-decoration-line: underline;
+  text-decoration-color: var(--marker-color, var(--brand));
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.12em;
+  text-decoration-skip-ink: none;
+}
+
+@utility rule-x {
+  @apply relative before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-border;
+}
