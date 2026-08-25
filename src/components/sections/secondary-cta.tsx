@@ -1,13 +1,14 @@
 "use client";
 
-import { buttonVariants } from "@/components/ui/button";
+import { ArrowDownRight } from "lucide-react";
+
+import { ButtonBadge, buttonVariants } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 /**
- * A real anchor styled as a button. Using the Button component here would
- * stamp role="button" on an element that navigates, which is the wrong
- * semantics for assistive tech and disables link affordances.
+ * A real anchor styled as a pill. Using the Button component here would stamp
+ * role="button" on an element that navigates, which is the wrong semantics.
  */
 export function SecondaryCta({
   href,
@@ -27,6 +28,9 @@ export function SecondaryCta({
       className={cn(buttonVariants({ variant: "outline", size: "xl" }), className)}
     >
       {label}
+      <ButtonBadge tone="quiet">
+        <ArrowDownRight strokeWidth={2.25} />
+      </ButtonBadge>
     </a>
   );
 }

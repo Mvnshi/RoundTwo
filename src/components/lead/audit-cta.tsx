@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 
 import { useAuditDialog } from "@/components/lead/audit-dialog";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonBadge } from "@/components/ui/button";
 import { track, type AnalyticsEvent } from "@/lib/analytics";
 import { cta } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -14,9 +14,9 @@ export function AuditCta({
   source,
   label = cta.primary,
   event = "hero_cta_clicked",
-  withArrow = true,
+  badge = "brand",
   className,
-  variant = "brand",
+  variant = "default",
   size = "xl",
   ...props
 }: Omit<ButtonProps, "onClick"> & {
@@ -24,14 +24,15 @@ export function AuditCta({
   source: string;
   label?: string;
   event?: AnalyticsEvent;
-  withArrow?: boolean;
+  /** Colour of the circular accent, or `none` for a plain pill. */
+  badge?: "brand" | "quiet" | "invert" | "none";
 }) {
   const { open } = useAuditDialog();
 
   return (
     <Button
       variant={variant}
-      size={size}
+      size={badge === "none" ? "xl-plain" : size}
       className={cn(className)}
       onClick={() => {
         track(event, { source });
@@ -40,7 +41,11 @@ export function AuditCta({
       {...props}
     >
       {label}
-      {withArrow ? <ArrowRight aria-hidden /> : null}
+      {badge === "none" ? null : (
+        <ButtonBadge tone={badge}>
+          <ArrowRight strokeWidth={2.25} />
+        </ButtonBadge>
+      )}
     </Button>
   );
 }

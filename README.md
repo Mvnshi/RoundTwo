@@ -157,22 +157,44 @@ src/
 
 ## Design system
 
-Warm industrial, not Silicon Valley purple. Tokens are defined in `globals.css`:
+Adapted from the **MindMarket** style on refero.design: warm cream paper, a single
+structural accent, generous "sticker-soft" rounding, and elevation by surface stack
+rather than shadows. Tokens live in `globals.css`:
 
 | Token | Value | Use |
 |---|---|---|
-| `--background` | `#F6F4EF` | Warm off-white ground |
-| `--foreground` | `#171816` | Graphite ink |
-| `--brand` | `#D9FF43` | Chartreuse — CTAs, recovered status, revenue figures only |
-| `--recovered` | `#2F6B45` | Deep green, real positive outcomes |
-| `--lost` | `#A33A2A` | Leak / lost states |
+| `--background` | `#F5F1E4` | Cream paper — the dominant canvas |
+| `--card` | `#FFFFFF` | Elevated surfaces. There are no shadows anywhere |
+| `--secondary` | `#E0DBCE` | Sandstone — recessed surfaces, footer, icon wells |
+| `--hairline` | `#D5D5D4` | The only divider |
+| `--foreground` | `#2C2E2A` | Ink |
+| `--muted-foreground` | `#63655F` | Stone, for secondary text |
+| `--brand-field` | `#C9EE6B` | Large colour fields (the hero). Same hue family, reference chroma |
+| `--brand` | `#D9FF43` | The electric accent, used **only** on small elements: CTA badges, status chips, revenue figures |
+| `--lost` / `--lost-soft` | `#C4402C` / `#FF705D` | Leak and lost states |
 
-Every text pairing meets WCAG AA (the lightest, `--muted-foreground` on `--muted`, is
-4.98:1). Chartreuse is never used as text on a light ground — only as a fill behind
-graphite, where it measures 15.6:1.
+Two greens is deliberate. At full bleed the electric chartreuse reads as highlighter,
+so large fields use the calmer sibling and the bright accent stays sparing — which is
+also how the reference system separates its structural green from its colour pops.
+
+**Geometry.** `--radius` is `1.75rem`, so the derived scale lands on the reference's
+proportions: 28px on inputs and small cards, ~39px on dialogs, 40–50px on content
+cards. Buttons, chips and the navigation are full pills. Nothing is square.
+
+**Type.** One family, Instrument Sans, at weights 400/500 — authority comes from
+scale and tight tracking, not from bolder weights. Display runs to 92px with
+`-0.055em` tracking and `0.95` line-height. Geist Mono is reserved for data: step
+numbers, status codes, section labels and money.
+
+**Layout.** 1200px measure, 48–72px section padding (so the visual gap between
+sections lands in the reference's 80–120px band), centred headings, left-aligned
+card content.
 
 `text-display` / `text-h2` / `text-h3` / `text-lead` are registered with `tailwind-merge`
 in `src/lib/utils.ts`, so they correctly override component defaults like `text-sm`.
+
+Every rendered text node is verified against WCAG AA by walking computed styles on the
+live page, not by eyeballing the palette.
 
 ## Accessibility
 

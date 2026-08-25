@@ -7,16 +7,17 @@ import { cn } from "@/lib/utils";
 
 export function NotACrm() {
   return (
-    <Section id="not-a-crm" className="border-t border-border">
+    <Section id="not-a-crm">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-16">
         <div>
           <SectionHeading
+            align="start"
             eyebrow="Where it sits"
             title={
               <>
                 Keep your CRM.
                 <br />
-                <span className="text-foreground/55">
+                <span className="text-muted-foreground">
                   Make the opportunities inside it worth more.
                 </span>
               </>
@@ -24,15 +25,15 @@ export function NotACrm() {
             lead="Replacing the system your team already lives in is the fastest way to lose a year and a lot of goodwill. RoundTwo is designed as a layer, not a platform migration."
           />
 
-          <ul className="mt-8 border-t border-border text-[0.9375rem] leading-relaxed text-muted-foreground">
-            <li className="border-b border-border py-3.5">
+          <ul className="mt-8 border-t border-hairline text-[0.9375rem] leading-relaxed text-muted-foreground">
+            <li className="border-b border-hairline py-3.5">
               No data migration, no retraining, no parallel system to keep updated.
             </li>
-            <li className="border-b border-border py-3.5">
+            <li className="border-b border-hairline py-3.5">
               Replies and booked appointments land in the CRM and calendar your team already opens
               every morning.
             </li>
-            <li className="border-b border-border py-3.5">
+            <li className="border-b border-hairline py-3.5">
               If you decide it isn&apos;t working, you turn the layer off and your sales process is
               exactly where it was.
             </li>
@@ -47,10 +48,8 @@ export function NotACrm() {
               <div key={layer.label} className="flex flex-col">
                 <div
                   className={cn(
-                    "rounded-xl border px-5 py-4",
-                    isOurs
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border bg-card",
+                    "rounded-[1.5rem] px-6 py-5",
+                    isOurs ? "bg-foreground text-background" : "bg-card",
                   )}
                 >
                   <p

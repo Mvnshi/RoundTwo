@@ -39,8 +39,12 @@
   --color-brand-strong: var(--brand-strong);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-field: var(--brand-field);
   --color-recovered: var(--recovered);
   --color-lost: var(--lost);
+  --color-lost-soft: var(--lost-soft);
+  --color-surface: var(--surface);
+  --color-hairline: var(--hairline);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -50,61 +54,72 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  --text-display: clamp(2.375rem, 1.4rem + 4.2vw, 4.25rem);
-  --text-display--line-height: 1;
-  --text-display--letter-spacing: -0.032em;
+  --text-display: clamp(2.75rem, 1.35rem + 6vw, 5.75rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.055em;
 
-  --text-h2: clamp(1.75rem, 1.2rem + 2.2vw, 2.625rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.026em;
+  --text-h2: clamp(2rem, 1.15rem + 3.6vw, 3.3125rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.04em;
 
-  --text-h3: clamp(1.1875rem, 1.06rem + 0.6vw, 1.5rem);
+  --text-h3: clamp(1.25rem, 1.09rem + 0.7vw, 1.5rem);
   --text-h3--line-height: 1.2;
-  --text-h3--letter-spacing: -0.018em;
+  --text-h3--letter-spacing: -0.022em;
 
   --text-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
-  --text-lead--line-height: 1.55;
-  --text-lead--letter-spacing: -0.008em;
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
 }
 
 :root {
-  --background: oklch(0.9673 0.007 88.64); /* #F6F4EF warm off-white */
-  --foreground: oklch(0.2071 0.0042 128.69); /* #171816 graphite */
+  --background: oklch(0.9577 0.0177 92.68); /* #F5F1E4 cream paper */
+  --foreground: oklch(0.2977 0.0076 128.75); /* #2C2E2A ink */
 
-  --card: oklch(0.997 0.0041 91.45);
+  /* Elevation is a surface stack, not a shadow: cream -> white. */
+  --card: oklch(1 0 0); /* #FFFFFF */
   --card-foreground: var(--foreground);
-  --popover: oklch(0.997 0.0041 91.45);
+  --popover: oklch(1 0 0);
   --popover-foreground: var(--foreground);
+  --surface: oklch(1 0 0);
 
-  --primary: oklch(0.2071 0.0042 128.69);
-  --primary-foreground: oklch(0.9673 0.007 88.64);
+  --primary: oklch(0.2977 0.0076 128.75);
+  --primary-foreground: oklch(0.9577 0.0177 92.68);
 
-  --secondary: oklch(0.9372 0.0112 89.73);
-  --secondary-foreground: oklch(0.2071 0.0042 128.69);
+  --secondary: oklch(0.8918 0.0183 89.37); /* #E0DBCE sandstone */
+  --secondary-foreground: oklch(0.2977 0.0076 128.75);
 
-  --muted: oklch(0.9372 0.0112 89.73); /* #EDEAE2 */
-  --muted-foreground: oklch(0.4998 0.0125 112.63); /* #63645C */
+  --muted: oklch(0.8918 0.0183 89.37);
+  --muted-foreground: oklch(0.5031 0.0096 121.8); /* #63655F stone */
 
   /* shadcn's --accent is the neutral hover token, intentionally NOT the brand. */
-  --accent: oklch(0.9219 0.0129 89.5);
-  --accent-foreground: oklch(0.2071 0.0042 128.69);
+  --accent: oklch(0.9219 0.0177 91);
+  --accent-foreground: oklch(0.2977 0.0076 128.75);
 
-  --destructive: oklch(0.4951 0.1422 31.23);
+  --destructive: oklch(0.5579 0.1717 31.41); /* #C4402C */
 
-  --border: oklch(0.9007 0.0154 90.24); /* #E2DED3 */
-  --border-strong: oklch(0.8515 0.0198 90.56); /* #D3CEC0 */
-  --input: oklch(0.8515 0.0198 90.56);
-  --ring: oklch(0.2071 0.0042 128.69);
+  --hairline: oklch(0.8727 0.0014 106.43); /* #D5D5D4 */
+  --border: oklch(0.8727 0.0014 106.43);
+  --border-strong: oklch(0.8918 0.0183 89.37);
+  --input: oklch(0.8727 0.0014 106.43);
+  --ring: oklch(0.2977 0.0076 128.75);
 
-  --brand: oklch(0.9414 0.2048 120.69); /* #D9FF43 */
-  --brand-strong: oklch(0.8816 0.2011 121.45); /* #C4EB2E */
-  --brand-foreground: oklch(0.2071 0.0042 128.69);
-  --brand-soft: oklch(0.9414 0.2048 120.69 / 16%);
+  --brand: oklch(0.9414 0.2048 120.69); /* #D9FF43 — small accents only */
+  --brand-strong: oklch(0.896 0.2059 121.17); /* #C9F02A */
+  /*
+    Large colour fields use a calmer sibling. At full bleed the electric
+    chartreuse reads as highlighter; this keeps the same hue family at the
+    reference system's chroma so the accent still pops against it.
+  */
+  --brand-field: oklch(0.8963 0.1629 122.87); /* #C9EE6B */
+  --brand-foreground: oklch(0.2977 0.0076 128.75);
+  --brand-soft: oklch(0.9414 0.2048 120.69 / 20%);
 
   --recovered: oklch(0.4769 0.0881 153.61); /* #2F6B45 */
-  --lost: oklch(0.4951 0.1422 31.23);
+  --lost: oklch(0.5579 0.1717 31.41); /* #C4402C, readable on cream */
+  --lost-soft: oklch(0.7158 0.1783 29.77); /* #FF705D coral, fills only */
 
-  --radius: 0.5rem;
+  /* Sticker-soft: generous rounding is the signature of this system. */
+  --radius: 1.75rem;
 }
 
 @layer base {
@@ -144,6 +159,7 @@
   h3,
   h4 {
     text-wrap: balance;
+    font-weight: 500;
   }
 
   p {
@@ -180,12 +196,12 @@
   the same distance under every wrapped line, unlike a background gradient.
 */
 @utility marker-rule {
-  color: var(--foreground);
+  color: inherit;
   background: transparent;
   text-decoration-line: underline;
-  text-decoration-color: var(--brand);
-  text-decoration-thickness: 0.085em;
-  text-underline-offset: 0.14em;
+  text-decoration-color: var(--marker-color, var(--brand));
+  text-decoration-thickness: 0.07em;
+  text-underline-offset: 0.12em;
   text-decoration-skip-ink: none;
 }
 

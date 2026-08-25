@@ -11,14 +11,14 @@ const { generic, contextual } = contextComparison;
 
 export function PersistentContext() {
   return (
-    <Section id="why-it-works" className="border-t border-border">
+    <Section id="why-it-works">
       <SectionHeading
         eyebrow="Why it works"
         title={<>&ldquo;Just following up&rdquo; isn&apos;t a sales strategy.</>}
         lead="Every follow-up tool can send a message on day seven. The difference is whether the message knows anything. Same customer, same day — two very different texts."
       />
 
-      <div className="mt-12 grid gap-5 sm:mt-14 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-12 grid gap-4 sm:mt-16 lg:grid-cols-2">
         <ComparisonPanel
           tone="generic"
           label={generic.label}
@@ -29,7 +29,7 @@ export function PersistentContext() {
             <MessageContent>
               <MessageHeader>Acme Roofing · Automated</MessageHeader>
               <Bubble variant="muted">
-                <BubbleContent className="px-3.5 py-2.5 text-[0.9375rem] text-muted-foreground">
+                <BubbleContent className="px-4 py-3 text-[0.9375rem] text-muted-foreground">
                   {generic.message}
                 </BubbleContent>
               </Bubble>
@@ -43,7 +43,7 @@ export function PersistentContext() {
           caption={contextual.caption}
           outcome={contextual.outcome}
         >
-          <div className="mb-4 rounded-lg border border-border bg-muted/50 p-3.5">
+          <div className="mb-5 rounded-[1.25rem] bg-secondary/70 p-4">
             <p className="label-mono flex items-center gap-2 text-muted-foreground">
               <Quote className="size-3" aria-hidden />
               {contextual.context.source}
@@ -57,7 +57,7 @@ export function PersistentContext() {
             <MessageContent>
               <MessageHeader>Acme Roofing · {brand.name}</MessageHeader>
               <Bubble variant="outline">
-                <BubbleContent className="border-border-strong px-3.5 py-2.5 text-[0.9375rem] text-foreground">
+                <BubbleContent className="border-transparent bg-brand/20 px-4 py-3 text-[0.9375rem] text-foreground">
                   {contextual.message}
                 </BubbleContent>
               </Bubble>
@@ -92,14 +92,13 @@ function ComparisonPanel({
   return (
     <article
       className={cn(
-        "flex flex-col rounded-xl border bg-card",
-        isContextual ? "border-foreground/15" : "border-border",
+        "flex flex-col overflow-hidden rounded-[2rem] bg-card",
       )}
     >
       <div
         className={cn(
-          "flex items-center gap-2 border-b px-5 py-3.5",
-          isContextual ? "border-foreground/12 bg-brand/12" : "border-border",
+          "flex items-center gap-2 px-6 py-4",
+          isContextual ? "bg-brand" : "bg-secondary",
         )}
       >
         {isContextual ? (
@@ -110,12 +109,12 @@ function ComparisonPanel({
         <h3 className="label-mono text-foreground">{label}</h3>
       </div>
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         <p className="mb-4 text-[0.8125rem] text-muted-foreground">{caption}</p>
         {children}
         <p
           className={cn(
-            "mt-auto border-t border-border pt-5 text-[0.875rem] leading-snug",
+            "mt-auto border-t border-hairline pt-5 text-[0.875rem] leading-snug",
             isContextual ? "text-foreground" : "text-muted-foreground",
           )}
         >

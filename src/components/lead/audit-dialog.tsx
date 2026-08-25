@@ -85,7 +85,7 @@ export function AuditDialogProvider({
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent
-          className="max-h-[100dvh] w-full max-w-[36rem] overflow-y-auto rounded-none bg-background p-6 sm:max-w-[36rem] sm:rounded-xl sm:p-8 max-sm:top-0 max-sm:left-0 max-sm:h-[100dvh] max-sm:max-w-none max-sm:translate-0"
+          className="max-h-[100dvh] w-full max-w-[36rem] overflow-y-auto rounded-none bg-card p-6 sm:max-w-[36rem] sm:rounded-[2rem] sm:p-9 max-sm:top-0 max-sm:left-0 max-sm:h-[100dvh] max-sm:max-w-none max-sm:translate-0"
           aria-labelledby="audit-dialog-title"
         >
           <DialogHeader className="gap-3 pr-8">

@@ -31,9 +31,10 @@ export function Faq() {
   }
 
   return (
-    <Section id="faq" className="border-t border-border">
+    <Section id="faq">
       <div className="grid gap-10 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
         <SectionHeading
+          align="start"
           eyebrow="Questions"
           title="The things contractors ask first."
           lead={`Straight answers about what ${brand.name} is today, not what it might be later.`}
@@ -44,10 +45,10 @@ export function Faq() {
           multiple
           value={openItems}
           onValueChange={onValueChange}
-          className="border-t border-border"
+          className="overflow-hidden rounded-[2rem] bg-card px-6 sm:px-8 lg:px-9"
         >
           {faqs.map((faq) => (
-            <AccordionItem key={faq.question} value={faq.question} className="border-b">
+            <AccordionItem key={faq.question} value={faq.question} className="border-hairline not-last:border-b">
               <AccordionTrigger className="gap-6 py-5 text-[1.0625rem] leading-snug font-medium hover:no-underline sm:py-6">
                 {faq.question}
               </AccordionTrigger>

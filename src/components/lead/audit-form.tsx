@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertTriangle, ArrowRight, Check } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, ButtonBadge, buttonVariants } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
@@ -38,7 +38,8 @@ type LeadResponse = {
   fieldErrors?: Record<string, string>;
 };
 
-const controlClass = "h-11 rounded-lg bg-card text-[0.9375rem]";
+const controlClass =
+  "h-12 rounded-full border-hairline bg-background px-5 text-[0.9375rem]";
 
 export function AuditForm({
   onDone,
@@ -308,7 +309,7 @@ export function AuditForm({
       {formError ? (
         <div
           role="alert"
-          className="flex gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-3.5 text-sm text-destructive"
+          className="flex gap-3 rounded-[1.25rem] border border-destructive/25 bg-destructive/5 p-4 text-sm text-destructive"
         >
           <AlertTriangle className="mt-0.5 size-4 shrink-0" aria-hidden />
           <p>
@@ -325,7 +326,13 @@ export function AuditForm({
       ) : null}
 
       <div className="flex flex-col gap-3">
-        <Button type="submit" variant="brand" size="xl" disabled={isSubmitting} className="w-full">
+        <Button
+          type="submit"
+          variant="brand"
+          size={isSubmitting ? "xl-plain" : "xl"}
+          disabled={isSubmitting}
+          className="w-full"
+        >
           {isSubmitting ? (
             <>
               <Spinner /> Sending…
@@ -333,7 +340,9 @@ export function AuditForm({
           ) : (
             <>
               {cta.primaryLong}
-              <ArrowRight aria-hidden />
+              <ButtonBadge tone="invert">
+                <ArrowRight strokeWidth={2.25} />
+              </ButtonBadge>
             </>
           )}
         </Button>
@@ -359,7 +368,7 @@ function AuditSuccess({
 }) {
   return (
     <div className="flex flex-col gap-6 py-2">
-      <div className="flex size-11 items-center justify-center rounded-full bg-brand">
+      <div className="flex size-12 items-center justify-center rounded-full bg-brand">
         <Check className="size-5 text-brand-foreground" strokeWidth={2.5} aria-hidden />
       </div>
 
@@ -373,7 +382,7 @@ function AuditSuccess({
       </div>
 
       {bookingUrl ? (
-        <div className="flex flex-col gap-3 rounded-lg border border-border bg-muted/50 p-4">
+        <div className="flex flex-col gap-3 rounded-[1.5rem] bg-background p-5">
           <p className="text-sm font-medium">Want to skip the wait?</p>
           <a
             href={bookingUrl}
@@ -383,7 +392,9 @@ function AuditSuccess({
             className={cn(buttonVariants({ variant: "default", size: "xl" }), "w-full")}
           >
             {cta.booking}
-            <ArrowRight aria-hidden />
+            <ButtonBadge tone="brand">
+              <ArrowRight strokeWidth={2.25} />
+            </ButtonBadge>
           </a>
         </div>
       ) : null}

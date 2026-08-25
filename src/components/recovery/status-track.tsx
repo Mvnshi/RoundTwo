@@ -24,7 +24,7 @@ export function StatusTrack({ className }: { className?: string }) {
   return (
     <div className={cn("flex flex-col gap-3", className)}>
       <p className="label-mono text-muted-foreground">The life of one recovered lead</p>
-      <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+      <ol className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-2">
         {stages.map((stage, index) => (
           <li key={stage.label} className="flex items-center gap-1.5">
             <span

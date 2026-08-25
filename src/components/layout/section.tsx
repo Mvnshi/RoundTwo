@@ -14,7 +14,7 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className={cn("py-20 sm:py-24 lg:py-28", className)}>
+    <section id={id} className={cn("py-14 sm:py-16 lg:py-[4.5rem]", className)}>
       {bleed ? children : <Container>{children}</Container>}
     </section>
   );
@@ -36,7 +36,7 @@ export function SectionHeading({
   eyebrow,
   title,
   lead,
-  align = "start",
+  align = "center",
   className,
 }: {
   eyebrow?: string;
@@ -54,7 +54,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="max-w-4xl text-h2 font-medium">{title}</h2>
+      <h2 className={cn("max-w-4xl text-h2 font-medium", align === "center" && "mx-auto")}>{title}</h2>
       {lead ? (
         <p
           className={cn(

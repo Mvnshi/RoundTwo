@@ -8,7 +8,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-border bg-muted/40">
+    <footer className="mt-auto bg-secondary/60">
       <Container className="py-14 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
           <div className="flex max-w-sm flex-col gap-4 lg:col-span-2">
@@ -29,7 +29,7 @@ export function SiteFooter() {
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-border pt-8 text-[0.75rem] leading-relaxed text-muted-foreground sm:mt-14">
+        <div className="mt-12 flex flex-col gap-4 border-t border-hairline pt-8 text-[0.75rem] leading-relaxed text-muted-foreground sm:mt-14">
           <p className="max-w-3xl">
             {brand.name} is an early-stage company currently working with a small number of
             founding partners. Figures shown on this site are illustrative examples, not

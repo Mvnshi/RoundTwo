@@ -1,12 +1,11 @@
 import { ArrowUpRight } from "lucide-react";
 
-import { GridPattern } from "@/components/ui/grid-pattern";
 import { exampleOpportunity, recoverySteps, type RecoveryStatus } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const dotStyles: Record<RecoveryStatus, string> = {
-  neutral: "border-border-strong bg-card text-muted-foreground",
-  lost: "border-dashed border-lost/45 bg-card text-lost",
+  neutral: "border-hairline bg-card text-muted-foreground",
+  lost: "border-dashed border-lost/50 bg-card text-lost",
   working: "border-foreground bg-foreground text-background",
   recovered: "border-brand-strong bg-brand text-brand-foreground",
 };
@@ -26,18 +25,9 @@ const metaStyles: Record<RecoveryStatus, string> = {
 export function RecoveryTimeline({ className }: { className?: string }) {
   return (
     <figure
-      className={cn(
-        "relative overflow-hidden rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(23,24,22,0.04),0_12px_32px_-12px_rgba(23,24,22,0.12)]",
-        className,
-      )}
+      className={cn("relative overflow-hidden rounded-[2.5rem] bg-card", className)}
     >
-      <GridPattern
-        width={28}
-        height={28}
-        className="absolute inset-0 h-full w-full fill-none stroke-foreground/[0.045] [mask-image:radial-gradient(320px_circle_at_top_right,white,transparent)]"
-      />
-
-      <div className="relative flex items-center justify-between gap-3 border-b border-border px-4 py-3 sm:px-5">
+      <div className="relative flex items-center justify-between gap-3 border-b border-hairline px-6 py-4 sm:px-7">
         <figcaption className="label-mono text-muted-foreground">
           Example recovery
         </figcaption>
@@ -47,7 +37,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
         </span>
       </div>
 
-      <div className="relative flex items-start justify-between gap-4 border-b border-border px-4 py-4 sm:px-5">
+      <div className="relative flex items-start justify-between gap-4 border-b border-hairline px-6 py-5 sm:px-7">
         <div className="min-w-0">
           <p className="text-[0.9375rem] font-medium text-foreground">
             {exampleOpportunity.name}
@@ -64,7 +54,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
         </div>
       </div>
 
-      <ol className="relative px-4 py-4 sm:px-5">
+      <ol className="relative px-6 py-5 sm:px-7">
         {recoverySteps.map((step, index) => {
           const Icon = step.icon;
           const isLast = index === recoverySteps.length - 1;
@@ -78,7 +68,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
               {!isLast ? (
                 <span
                   aria-hidden
-                  className="absolute top-7 bottom-0 left-[13px] w-px bg-border"
+                  className="absolute top-7 bottom-0 left-[13px] w-px bg-hairline"
                 />
               ) : null}
 
@@ -93,7 +83,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
               </span>
 
               <div className="min-w-0 flex-1 pt-0.5">
-                <div className="flex items-baseline justify-between gap-3">
+                <div className="flex flex-col gap-0.5 min-[420px]:flex-row min-[420px]:items-baseline min-[420px]:justify-between min-[420px]:gap-3">
                   <p
                     className={cn(
                       "text-[0.8125rem] font-medium",
@@ -122,7 +112,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
         })}
       </ol>
 
-      <div className="relative flex items-center gap-2 border-t border-border bg-muted/40 px-4 py-3 text-[0.75rem] text-muted-foreground sm:px-5">
+      <div className="relative flex items-center gap-2 border-t border-hairline px-6 py-4 text-[0.75rem] text-muted-foreground sm:px-7">
         <ArrowUpRight className="size-3.5 shrink-0" aria-hidden />
         <p>
           Illustrative example of the workflow we build with partners. Not customer data.

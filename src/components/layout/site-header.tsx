@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
-import { AuditCta } from "@/components/lead/audit-cta";
 import { Wordmark } from "@/components/layout/brand-mark";
+import { AuditCta } from "@/components/lead/audit-cta";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -16,78 +16,81 @@ import {
 import { cta, navLinks } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+/**
+ * A floating navigation pill rather than a full-width bar: the nav sits on
+ * top of the hero colour field with air on every side, and the CTA lives in
+ * its own detached pill beside it.
+ */
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    const onScroll = () => setIsScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b transition-colors duration-200",
-        isScrolled
-          ? "border-border bg-background/95 supports-backdrop-filter:backdrop-blur-lg"
-          : "border-transparent bg-transparent",
-      )}
-    >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Wordmark />
+    <header className="sticky top-0 z-50 w-full">
+      <div
+        className={cn(
+          "mx-auto flex w-full max-w-[1200px] items-center justify-center gap-2.5 px-4 transition-[padding] duration-300 sm:px-6",
+          isScrolled ? "py-3" : "py-4 sm:py-5",
+        )}
+      >
+        <div className="flex h-14 min-w-0 flex-1 items-center justify-between gap-6 rounded-full bg-card ring-1 ring-hairline pr-2 pl-4 sm:pl-6 lg:flex-none lg:gap-10 lg:pr-6">
+          <Wordmark />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <AuditCta
-            source="nav"
-            label={cta.nav}
-            event="hero_cta_clicked"
-            withArrow={false}
-            size="lg"
-            className="hidden h-9 px-4 sm:inline-flex"
-          />
+          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="rounded-full px-3.5 py-2 text-[0.9375rem] text-foreground/75 transition-colors hover:bg-secondary/70 hover:text-foreground"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger
               render={
-                <Button variant="outline" size="icon-lg" className="size-11 lg:hidden" aria-label="Open menu" />
+                <Button
+                  variant="brand"
+                  size="icon-lg"
+                  className="size-10 shrink-0 lg:hidden"
+                  aria-label="Open menu"
+                />
               }
             >
               <Menu aria-hidden />
             </SheetTrigger>
-            <SheetContent side="right" className="w-[min(20rem,88vw)] bg-background">
-              <SheetHeader className="border-b border-border">
+
+            <SheetContent
+              side="right"
+              className="w-[min(21rem,90vw)] rounded-l-[2rem] bg-card"
+            >
+              <SheetHeader className="border-b border-hairline px-5 py-4">
                 <SheetTitle className="text-left text-sm font-medium">Menu</SheetTitle>
               </SheetHeader>
 
-              <nav aria-label="Mobile" className="flex flex-col p-2">
+              <nav aria-label="Mobile" className="flex flex-col gap-1 p-3">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="rounded-md px-3 py-3.5 text-base font-medium text-foreground transition-colors hover:bg-muted"
+                    className="rounded-full px-4 py-3.5 text-base font-medium text-foreground transition-colors hover:bg-secondary/70"
                   >
                     {link.label}
                   </a>
                 ))}
               </nav>
 
-              <div className="mt-auto border-t border-border p-4">
+              <div className="mt-auto border-t border-hairline p-4">
                 <AuditCta
                   source="mobile-nav"
                   label={cta.primary}
@@ -97,7 +100,16 @@ export function SiteHeader() {
               </div>
             </SheetContent>
           </Sheet>
+
         </div>
+
+        <AuditCta
+          source="nav"
+          label={cta.nav}
+          event="hero_cta_clicked"
+          badge="brand"
+          className="hidden h-14 shrink-0 bg-card pr-1.5 pl-6 text-foreground ring-1 ring-hairline hover:bg-card/85 sm:inline-flex"
+        />
       </div>
     </header>
   );

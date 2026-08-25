@@ -5,7 +5,7 @@ import { Calculator } from "@/components/sections/calculator";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
 import { FoundingPartners } from "@/components/sections/founding-partners";
-import { Hero } from "@/components/sections/hero";
+import { Hero, HeroVisual } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Leak } from "@/components/sections/leak";
 import { NotACrm } from "@/components/sections/not-a-crm";
@@ -38,10 +38,13 @@ export default function HomePage() {
         Skip to content
       </a>
 
-      <SiteHeader />
+      <div className="bg-brand-field">
+        <SiteHeader />
+        <Hero />
+      </div>
 
       <main id="main" className="flex-1">
-        <Hero />
+        <HeroVisual />
         <Leak />
         <HowItWorks />
         <PersistentContext />

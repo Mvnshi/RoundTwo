@@ -93,15 +93,15 @@ export function Calculator() {
   }
 
   return (
-    <Section id="roi" className="border-t border-border">
+    <Section id="roi">
       <SectionHeading
         eyebrow="The arithmetic"
         title="One recovered job a month changes the year."
         lead="Move the numbers to match your business. High job values are what make recovery worth doing at all — at contractor ticket sizes, a small percentage is not a small number."
       />
 
-      <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-border bg-border sm:mt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)]">
-        <div className="flex min-w-0 flex-col gap-8 bg-card p-6 sm:p-8">
+      <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+        <div className="flex min-w-0 flex-col gap-8 rounded-[2rem] bg-card p-7 sm:p-9">
           <SliderRow
             id={`${uid}-leads`}
             label="Leads per month"
@@ -121,7 +121,7 @@ export function Calculator() {
             <Label htmlFor={`${uid}-value`} className="text-[0.9375rem] font-medium">
               Average closed job value
             </Label>
-            <InputGroup className="h-12 max-w-[14rem] rounded-lg bg-card">
+            <InputGroup className="h-13 max-w-[14rem] rounded-full border-hairline bg-card pl-2">
               <InputGroupAddon>
                 <InputGroupText className="text-muted-foreground">$</InputGroupText>
               </InputGroupAddon>
@@ -168,13 +168,13 @@ export function Calculator() {
             hint="Deliberately conservative. We'd rather under-promise than model a best case."
           />
 
-          <p className="mt-auto border-t border-border pt-6 text-[0.8125rem] leading-relaxed text-muted-foreground">
+          <p className="mt-auto border-t border-hairline pt-6 text-[0.8125rem] leading-relaxed text-muted-foreground">
             Defaults reflect a mid-sized roofing or remodeling operation. The audit replaces these
             with your actual numbers.
           </p>
         </div>
 
-        <div className="flex min-w-0 flex-col bg-foreground p-6 text-background sm:p-8">
+        <div className="flex min-w-0 flex-col rounded-[2rem] bg-foreground p-7 text-background sm:p-9">
           <p className="label-mono text-background/60">Illustrative recovered revenue</p>
 
           <p className="mt-4 flex flex-wrap items-baseline gap-x-1 gap-y-1 text-background">
@@ -198,7 +198,7 @@ export function Calculator() {
             over twelve months, from leads you have already paid for.
           </p>
 
-          <dl className="mt-8 flex flex-col gap-px overflow-hidden rounded-lg bg-background/15 text-[0.875rem]">
+          <dl className="mt-8 flex flex-col gap-px overflow-hidden rounded-[1.25rem] bg-background/15 text-[0.875rem]">
             <ResultRow
               label="Opportunities lost each month"
               value={formatCount(results.lostOpportunities)}
@@ -223,6 +223,8 @@ export function Calculator() {
               source="calculator"
               label={cta.primaryLong}
               event="secondary_cta_clicked"
+              variant="brand"
+              badge="invert"
               className="w-full"
             />
           </div>

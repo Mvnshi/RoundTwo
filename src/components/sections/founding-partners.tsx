@@ -8,13 +8,13 @@ import { cta } from "@/lib/site";
 
 export function FoundingPartners() {
   return (
-    <section id="founding-partners" className="py-20 sm:py-24 lg:py-28">
+    <section id="founding-partners" className="py-14 sm:py-16 lg:py-[4.5rem]">
       <Container>
-        <div className="relative overflow-hidden rounded-2xl bg-foreground text-background">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-foreground text-background sm:rounded-[3rem]">
           <GridPattern
             width={56}
             height={56}
-            className="absolute inset-0 h-full w-full fill-none stroke-background/[0.06] [mask-image:radial-gradient(600px_circle_at_80%_0%,white,transparent)]"
+            className="absolute inset-0 h-full w-full fill-none stroke-background/[0.07] [mask-image:radial-gradient(620px_circle_at_82%_0%,white,transparent)]"
           />
 
           <div className="relative grid gap-10 p-7 sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-14 lg:p-14">
@@ -51,6 +51,8 @@ export function FoundingPartners() {
                   source="founding-partners"
                   label={cta.primaryLong}
                   event="secondary_cta_clicked"
+                  variant="brand"
+                  badge="invert"
                   className="w-full sm:w-auto sm:self-start"
                 />
                 <p className="text-[0.8125rem] text-background/60">

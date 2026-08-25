@@ -11,44 +11,39 @@ import { cn } from "@/lib/utils";
 
 export function Leak() {
   return (
-    <Section id="the-leak" className="border-t border-border">
+    <Section id="the-leak">
       <SectionHeading
         eyebrow="Where the money goes"
         title={
           <>
             Most contractors don&apos;t need more leads.
             <br />
-            <span className="text-foreground/55">They need fewer leads to disappear.</span>
+            <span className="text-muted-foreground">They need fewer leads to disappear.</span>
           </>
         }
         lead="Four moments account for most of the revenue that quietly leaves a contracting business. None of them show up as a line item, because nothing was ever bought — it was just never worked."
       />
 
-      <div className="mt-12 grid overflow-hidden rounded-xl border border-border bg-card sm:mt-14 sm:grid-cols-2">
-        {leaks.map((leak, index) => {
+      <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2">
+        {leaks.map((leak) => {
           const Icon = leak.icon;
 
           return (
             <div
               key={leak.index}
-              className={cn(
-                "flex flex-col gap-5 p-6 sm:p-7 lg:p-8",
-                index < leaks.length - 1 && "border-b border-border",
-                "sm:border-b-0",
-                index < 2 && "sm:border-b sm:border-border",
-                index % 2 === 0 && "sm:border-r sm:border-border",
-              )}
+              className={cn("flex flex-col gap-6 rounded-[2rem] bg-card p-7 sm:p-8 lg:p-9")}
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="label-mono text-muted-foreground">{leak.index}</span>
-                <span aria-hidden className="h-px flex-1 bg-border" />
-                <span className="label-mono text-lost/80">{leak.cost}</span>
+                <span className="rounded-full bg-lost-soft/20 px-3 py-1.5 label-mono text-lost">
+                  {leak.cost}
+                </span>
               </div>
 
               <Item variant="default" className="items-start gap-4 p-0">
                 <ItemMedia
                   variant="icon"
-                  className="mt-0.5 size-9 rounded-lg border border-border bg-muted/60 text-foreground"
+                  className="mt-0.5 size-11 rounded-full bg-secondary text-foreground"
                 >
                   <Icon aria-hidden />
                 </ItemMedia>
