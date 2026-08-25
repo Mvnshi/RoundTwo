@@ -66,6 +66,58 @@ With no analytics IDs set, **no analytics script loads at all** — no vendor JS
 > `CONTACT_NOTIFICATION_EMAIL`, `RESEND_FROM_EMAIL` — are read per request and can change
 > without a rebuild.
 
+## Free tools and content
+
+Two acquisition assets sit alongside the marketing page, both built to do work a
+generic AI chat cannot: they use the visitor's own numbers, produce a persistent
+artefact, and are anchored against sourced research.
+
+### Lead Leak Scorecard — `/scorecard`
+
+Nine questions, about ninety seconds, **no email required to see a result**. Five of
+them are scored; four capture the numbers needed to turn a leak rate into money.
+
+- Outputs a score out of 100, a per-stage leak breakdown, and a deliberately
+  conservative annual figure (10% assumed recovery rate)
+- Results are encoded in the URL (`/scorecard?s=…`), so they are shareable and
+  revisitable without a backend
+- The email capture sits **after** the result and asks for four fields, not seven —
+  trade, volume, job value and CRM are carried over from the answers already given
+- Submissions hit the same `/api/lead` endpoint with `source: "scorecard"` and the
+  full answer set attached, so every lead arrives pre-qualified
+
+Calibration is checked: a perfect 100 models a ~9% total leak, 70 models ~27%, and
+11 models ~73%. The model is defined in `src/lib/scorecard.ts` and its assumptions
+are printed on the result page rather than hidden.
+
+### Writing — `/blog`
+
+Three researched posts. The flagship traces every lead-response statistic
+contractors get quoted back to its original study — and finds that the famous
+"5-minute rule" is a 2007 MIT–InsideSales study routinely misattributed to Harvard,
+that published missed-call rates range from 14% to 62%, and that one heavily cited
+"benchmark report" is a private per-customer document nobody can read.
+
+That is the content strategy in one line: **in a market saturated with recycled,
+unsourced statistics, the differentiated move is to publish the audit.** Sourced
+claims earn links; the honest positioning matches the product positioning.
+
+`src/lib/benchmarks.ts` holds every external claim with a `provenance` field
+(`primary` / `publisher` / `vendor-published` / `unverifiable`) so nothing gets
+quoted without its receipts.
+
+## Answer-engine optimisation
+
+- `/llms.txt` — a plain-text summary for answer engines, generated from the same
+  source of truth as the site, including the honest "early-stage, no customers to
+  cite" framing and every statistic with its provenance
+- JSON-LD as a single connected `@graph` per page: `Organization`, `WebSite`,
+  `Service` and `FAQPage` on the home page; `WebApplication` on the scorecard;
+  `BlogPosting` + `BreadcrumbList` on posts
+- Every post opens with a one-sentence direct answer in a dedicated block, formatted
+  so an answer engine can lift it whole
+- Sitemap covers all routes including posts
+
 ## Lead capture
 
 `POST /api/lead` → [`src/app/api/lead/route.ts`](./src/app/api/lead/route.ts)
@@ -117,7 +169,8 @@ destination is optional and every call is wrapped so a broken tag can't break th
 
 Events: `hero_cta_clicked`, `secondary_cta_clicked`, `recovery_calculator_started`,
 `recovery_calculator_completed`, `audit_form_opened`, `audit_form_started`,
-`audit_form_submitted`, `booking_clicked`, `faq_opened`.
+`audit_form_submitted`, `booking_clicked`, `faq_opened`, `scorecard_started`,
+`scorecard_completed`, `scorecard_lead_submitted`, `scorecard_shared`.
 
 Meta's standard events are mapped where they exist (`audit_form_submitted` → `Lead`,
 `audit_form_opened` → `InitiateCheckout`, `booking_clicked` → `Schedule`); everything else
@@ -134,20 +187,28 @@ src/
   app/
     api/lead/route.ts        lead endpoint
     layout.tsx page.tsx      root layout + home page
+    scorecard/               the free diagnostic tool
+    blog/                    index + one directory per post
     privacy/ terms/          legal placeholders (need legal review)
+    llms.txt/route.ts        answer-engine summary
     opengraph-image.tsx      generated OG card
     sitemap.ts robots.ts icon.svg
     globals.css              design tokens + type scale
   components/
     analytics/               script loader + attribution boot
-    layout/                  header, footer, container, section, wordmark
+    blog/                    article layout + content primitives
+    layout/                  header, footer, container, section, wordmark, mobile CTA
     lead/                    audit dialog, form, CTA button
-    recovery/                the hero recovery timeline
+    recovery/                the hero recovery timeline, status track
+    scorecard/               question flow, result view, lead form
     sections/                one file per page section
     ui/                      shadcn + Magic UI components
   lib/
     site.ts                  brand name, nav, CTA labels  ← rename the company here
     content.ts               all page copy as typed data
+    posts.ts                 blog post registry
+    scorecard.ts             the scoring model and its assumptions
+    benchmarks.ts            external claims + provenance
     analytics.ts attribution.ts
     lead-schema.ts lead-delivery.ts rate-limit.ts utils.ts
 ```
@@ -226,3 +287,5 @@ lead route runs on the Node runtime and is dynamic; everything else is static.
 - [ ] Add the analytics IDs you plan to optimise against.
 - [ ] Have `/privacy` and `/terms` reviewed by a lawyer — they are honest drafts, not advice.
 - [ ] Replace `hello@roundtwo.com` in `src/lib/site.ts` with a monitored inbox.
+- [ ] Point paid traffic at `/scorecard` rather than `/` — it converts colder traffic
+      and every completion arrives qualified.

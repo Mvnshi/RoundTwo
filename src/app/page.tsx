@@ -1,4 +1,5 @@
 import { SiteFooter } from "@/components/layout/site-footer";
+import { MobileCtaBar } from "@/components/layout/mobile-cta-bar";
 import { SiteHeader } from "@/components/layout/site-header";
 import { AuditDialogProvider } from "@/components/lead/audit-dialog";
 import { Calculator } from "@/components/sections/calculator";
@@ -10,16 +11,62 @@ import { HowItWorks } from "@/components/sections/how-it-works";
 import { Leak } from "@/components/sections/leak";
 import { NotACrm } from "@/components/sections/not-a-crm";
 import { PersistentContext } from "@/components/sections/persistent-context";
+import { faqs } from "@/lib/content";
 import { brand, getBookingUrl, seo, siteUrl } from "@/lib/site";
 
-const organizationJsonLd = {
+/**
+ * One @graph rather than several script tags: answer engines and rich-result
+ * parsers both prefer a single connected document, and the FAQ block is what
+ * actually gets lifted into answers.
+ */
+const homeJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: brand.name,
-  url: siteUrl,
-  description: seo.description,
-  email: brand.supportEmail,
-  slogan: brand.tagline,
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      name: brand.name,
+      url: siteUrl,
+      description: seo.description,
+      email: brand.supportEmail,
+      slogan: brand.tagline,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: brand.name,
+      description: seo.description,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "Service",
+      name: `${brand.name} revenue recovery`,
+      serviceType: "Lead recovery and follow-up for contractors",
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: "US",
+      audience: {
+        "@type": "Audience",
+        audienceType:
+          "Roofing, remodeling, electrical, HVAC and plumbing contractors",
+      },
+      offers: {
+        "@type": "Offer",
+        name: "Free recovery audit",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}/#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    },
+  ],
 };
 
 export default function HomePage() {
@@ -28,7 +75,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         // Static, author-controlled object — no user input reaches this string.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
 
       <a
@@ -56,6 +103,7 @@ export default function HomePage() {
       </main>
 
       <SiteFooter />
+      <MobileCtaBar />
     </AuditDialogProvider>
   );
 }

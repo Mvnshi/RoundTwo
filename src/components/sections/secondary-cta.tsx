@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 import { ButtonBadge, buttonVariants } from "@/components/ui/button";
 import { track } from "@/lib/analytics";
@@ -21,6 +21,10 @@ export function SecondaryCta({
   source: string;
   className?: string;
 }) {
+  // An in-page jump and a navigation are different promises; show it.
+  const navigates = !href.startsWith("#");
+  const Icon = navigates ? ArrowUpRight : ArrowDownRight;
+
   return (
     <a
       href={href}
@@ -29,7 +33,7 @@ export function SecondaryCta({
     >
       {label}
       <ButtonBadge tone="quiet">
-        <ArrowDownRight strokeWidth={2.25} />
+        <Icon strokeWidth={2.25} />
       </ButtonBadge>
     </a>
   );

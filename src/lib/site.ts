@@ -25,6 +25,7 @@ export const seo = {
 } as const;
 
 export const cta = {
+  scorecard: "Take the free scorecard",
   primary: "Find My Lost Revenue",
   primaryLong: "Get My Free Recovery Audit",
   secondary: "See a Recovery",
@@ -33,19 +34,23 @@ export const cta = {
 } as const;
 
 export const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Why It Works", href: "#why-it-works" },
-  { label: "ROI", href: "#roi" },
-  { label: "FAQ", href: "#faq" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "Scorecard", href: "/scorecard" },
+  { label: "Writing", href: "/blog" },
+  { label: "FAQ", href: "/#faq" },
 ] as const;
 
 export const footerLinks = {
   product: [
-    { label: "How It Works", href: "#how-it-works" },
-    { label: "Why It Works", href: "#why-it-works" },
-    { label: "Recovery Calculator", href: "#roi" },
-    { label: "Founding Partners", href: "#founding-partners" },
-    { label: "FAQ", href: "#faq" },
+    { label: "How It Works", href: "/#how-it-works" },
+    { label: "Why It Works", href: "/#why-it-works" },
+    { label: "Recovery Calculator", href: "/#roi" },
+    { label: "Founding Partners", href: "/#founding-partners" },
+    { label: "FAQ", href: "/#faq" },
+  ],
+  resources: [
+    { label: "Lead Leak Scorecard", href: "/scorecard" },
+    { label: "Writing", href: "/blog" },
   ],
   legal: [
     { label: "Privacy", href: "/privacy" },

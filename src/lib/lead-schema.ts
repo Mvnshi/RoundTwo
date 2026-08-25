@@ -30,6 +30,18 @@ export const attributionSchema = z
   })
   .partial();
 
+/** Attached when the lead came through the scorecard rather than the form. */
+export const scorecardPayloadSchema = z
+  .object({
+    score: z.number().int().min(0).max(100),
+    band: z.string().max(40),
+    lostPerMonth: z.number().nonnegative().max(1_000_000),
+    recoverablePerYear: z.number().nonnegative().max(1_000_000_000),
+    topLeak: z.string().max(60),
+    answers: z.record(z.string().max(40), z.string().max(120)),
+  })
+  .partial();
+
 export const leadSchema = z.object({
   firstName: trimmed(80).min(1, "Tell us who to address the audit to."),
   email: trimmed(160)
@@ -52,6 +64,9 @@ export const leadSchema = z.object({
   /** Epoch ms recorded when the form was opened. */
   startedAt: z.number().int().nonnegative().optional(),
   attribution: attributionSchema.optional(),
+  scorecard: scorecardPayloadSchema.optional(),
+  /** Which surface produced the lead, for routing and reporting. */
+  source: z.enum(["audit-form", "scorecard"]).optional(),
 });
 
 export type LeadInput = z.input<typeof leadSchema>;

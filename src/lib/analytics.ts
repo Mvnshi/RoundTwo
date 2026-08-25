@@ -17,6 +17,10 @@ export const analyticsEvents = [
   "audit_form_submitted",
   "booking_clicked",
   "faq_opened",
+  "scorecard_started",
+  "scorecard_completed",
+  "scorecard_lead_submitted",
+  "scorecard_shared",
 ] as const;
 
 export type AnalyticsEvent = (typeof analyticsEvents)[number];
@@ -51,7 +55,10 @@ export const analyticsConfig = {
  */
 const META_STANDARD_EVENT: Partial<Record<AnalyticsEvent, string>> = {
   audit_form_submitted: "Lead",
+  scorecard_lead_submitted: "Lead",
   audit_form_opened: "InitiateCheckout",
+  scorecard_started: "InitiateCheckout",
+  scorecard_completed: "CompleteRegistration",
   booking_clicked: "Schedule",
 };
 

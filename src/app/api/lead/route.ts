@@ -123,6 +123,8 @@ export async function POST(request: Request) {
     leadVolume: lead.leadVolume,
     crm: lead.crm,
     attribution: lead.attribution ?? {},
+    origin: lead.source ?? "audit-form",
+    ...(lead.scorecard ? { scorecard: lead.scorecard } : {}),
     source: {
       ip,
       userAgent: request.headers.get("user-agent")?.slice(0, 400) ?? "unknown",

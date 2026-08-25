@@ -9,8 +9,8 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto bg-secondary/60">
-      <Container className="py-14 sm:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <Container className="py-14 pb-28 sm:py-16 lg:pb-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-12">
           <div className="flex max-w-sm flex-col gap-4 lg:col-span-2">
             <Wordmark />
             <p className="text-[0.875rem] leading-relaxed text-muted-foreground">
@@ -26,6 +26,7 @@ export function SiteFooter() {
           </div>
 
           <FooterColumn title="Product" links={footerLinks.product} />
+          <FooterColumn title="Free tools" links={footerLinks.resources} />
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 

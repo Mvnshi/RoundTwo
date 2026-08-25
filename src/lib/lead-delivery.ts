@@ -10,6 +10,9 @@ export type StoredLead = {
   leadVolume: string;
   crm: string;
   attribution: Record<string, string | undefined>;
+  /** Present when the lead came through the scorecard. */
+  scorecard?: Record<string, unknown>;
+  origin: "audit-form" | "scorecard";
   source: {
     ip: string;
     userAgent: string;
@@ -65,6 +68,12 @@ function notificationHtml(lead: StoredLead): string {
     ["Leads / month", lead.leadVolume],
     ["CRM", lead.crm],
     ["Submitted", lead.submittedAt],
+    ["Came from", lead.origin === "scorecard" ? "Lead Leak Scorecard" : "Audit form"],
+    ...(lead.scorecard
+      ? (Object.entries(lead.scorecard)
+          .filter(([, v]) => typeof v !== "object")
+          .map(([k, v]) => [`Scorecard · ${k}`, String(v)]) as Array<[string, string]>)
+      : []),
     ["Landing page", lead.attribution.landingUrl ?? "—"],
     ["Referrer", lead.attribution.referrer ?? "—"],
     ["utm_source", lead.attribution.utm_source ?? "—"],
@@ -87,7 +96,9 @@ function notificationHtml(lead: StoredLead): string {
     )
     .join("");
 
-  return `<div style="background:#F6F4EF;padding:24px"><div style="max-width:560px;margin:0 auto;background:#FFFEFB;border:1px solid #E2DED3;border-radius:8px;padding:24px"><p style="margin:0 0 4px;font:11px/1.4 ui-monospace,SFMono-Regular,monospace;letter-spacing:.14em;text-transform:uppercase;color:#63645C">New recovery audit request</p><h1 style="margin:0 0 20px;font:600 20px/1.2 -apple-system,Segoe UI,sans-serif;color:#171816">${escapeHtml(
+  return `<div style="background:#F6F4EF;padding:24px"><div style="max-width:560px;margin:0 auto;background:#FFFEFB;border:1px solid #E2DED3;border-radius:8px;padding:24px"><p style="margin:0 0 4px;font:11px/1.4 ui-monospace,SFMono-Regular,monospace;letter-spacing:.14em;text-transform:uppercase;color:#63645C">${
+    lead.origin === "scorecard" ? "New scorecard result" : "New recovery audit request"
+  }</p><h1 style="margin:0 0 20px;font:600 20px/1.2 -apple-system,Segoe UI,sans-serif;color:#171816">${escapeHtml(
     lead.companyName,
   )}</h1><table style="border-collapse:collapse">${body}</table></div></div>`;
 }
@@ -107,7 +118,10 @@ async function sendNotificationEmail(lead: StoredLead): Promise<void> {
       from: process.env.RESEND_FROM_EMAIL ?? `${brand.name} <onboarding@resend.dev>`,
       to: [to],
       reply_to: lead.email,
-      subject: `Recovery audit — ${lead.companyName} (${lead.businessType}, ${lead.leadVolume} leads/mo)`,
+      subject:
+        lead.origin === "scorecard"
+          ? `Scorecard ${lead.scorecard?.score ?? "?"}/100 — ${lead.companyName} (${lead.businessType}, ${lead.leadVolume} leads/mo)`
+          : `Recovery audit — ${lead.companyName} (${lead.businessType}, ${lead.leadVolume} leads/mo)`,
       html: notificationHtml(lead),
     }),
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),

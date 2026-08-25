@@ -26,7 +26,7 @@ export function FinalCta() {
 
           <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
             <AuditCta source="final" label={cta.primaryLong} event="secondary_cta_clicked" />
-            <SecondaryCta href="#how-it-works" label="See how it works" source="final" />
+            <SecondaryCta href="/scorecard" label={cta.scorecard} source="final" />
           </div>
 
           <p className="mt-6 text-[0.8125rem] text-muted-foreground">

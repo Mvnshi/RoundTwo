@@ -37,7 +37,7 @@ export function Hero() {
 
           <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
             <AuditCta source="hero" label={cta.primary} event="hero_cta_clicked" />
-            <SecondaryCta href="#why-it-works" label={cta.secondary} source="hero" />
+            <SecondaryCta href="/scorecard" label={cta.scorecard} source="hero" />
           </div>
 
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1.5 text-[0.8125rem] text-foreground/75">
