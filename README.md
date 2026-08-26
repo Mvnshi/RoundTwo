@@ -289,3 +289,48 @@ lead route runs on the Node runtime and is dynamic; everything else is static.
 - [ ] Replace `hello@roundtwo.com` in `src/lib/site.ts` with a monitored inbox.
 - [ ] Point paid traffic at `/scorecard` rather than `/` — it converts colder traffic
       and every completion arrives qualified.
+
+---
+
+## Friction Company (`/friction`)
+
+A second, unrelated brand served from the same deployment. It shares the domain
+and nothing else.
+
+**How the isolation works.** `src/app/` has two root layouts, as route groups:
+
+```
+src/app/
+  (roundtwo)/   layout.tsx  globals.css  →  /, /blog, /scorecard, /privacy, /terms
+  (friction)/   layout.tsx  friction.css →  /friction
+  api/          lead/  friction/
+```
+
+Each group owns its own `<html>`, fonts, stylesheet, favicon and metadata.
+Friction's tokens are all prefixed `--fr-*` and its type scale uses custom
+utility names (`fr-mega`, `fr-label`, …) rather than Tailwind's `text-*` scale,
+so the two systems cannot collide even if both stylesheets ever loaded on one
+document. Verified: the two routes share **zero** CSS files, and neither
+page's stylesheet contains the other's tokens.
+
+Nothing links between the two brands in any navigation or footer. `/friction`
+appears in the sitemap because it is a real indexable page.
+
+**Design system.** Cool paper, near-black ink, one hazard signal, zero radius,
+Archivo + IBM Plex Mono. The reference is a technical manual: hairline rules,
+numbered clauses, measured readouts, struck-through steps.
+
+**The instrument.** `FrictionPathDiagram` draws a path between an intention and
+an outcome, scores it, and lets the reader cut steps and watch the score move.
+Cut steps stay on the page, ruled through, because seeing what was removed is
+the point. It uses CSS state only — no animation library.
+
+**The score is a model, not a measurement.** Each step kind carries a
+likelihood that the intention dies there; those compound across the path, and
+the score is the share of intent that does not survive. The rates live in
+`src/lib/friction/score.ts` and the page says plainly that they are a model.
+
+**Intake.** `POST /api/friction` — its own three-field schema, honeypot,
+fill-time check and rate limiting, delivering to `FRICTION_WEBHOOK_URL`
+(falling back to `LEAD_WEBHOOK_URL`). It never reports success for something it
+did not actually deliver.

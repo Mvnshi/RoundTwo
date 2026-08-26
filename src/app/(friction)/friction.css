@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/*
+  Friction Company design tokens.
+
+  Deliberately shares nothing with the other site in this repo — not a token
+  name, not a font, not a corner radius. Every custom name here is prefixed
+  `fr-` so the two systems could not collide even if both stylesheets were
+  somehow loaded on the same document.
+
+  The identity is a technical manual: cool paper, hairline rules, a single
+  hazard signal, and no radius anywhere. Depth comes from rules and solid
+  black blocks, never from shadow or blur.
+*/
+
+@theme inline {
+  --color-paper: var(--fr-paper);
+  --color-panel: var(--fr-panel);
+  --color-ink: var(--fr-ink);
+  --color-dim: var(--fr-dim);
+  --color-faint: var(--fr-faint);
+  --color-rule: var(--fr-rule);
+  --color-hazard: var(--fr-hazard);
+  --color-hazard-ink: var(--fr-hazard-ink);
+  --color-void: var(--fr-void);
+  --color-void-dim: var(--fr-void-dim);
+  --color-void-rule: var(--fr-void-rule);
+
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-plex-mono);
+
+  --radius-none: 0;
+}
+
+:root {
+  /* Cool neutral paper. The other site is warm; this one must not be. */
+  --fr-paper: oklch(0.9583 0.0022 250);
+  --fr-panel: oklch(1 0 0);
+  --fr-ink: oklch(0.1789 0.0079 250);
+  /* Secondary text. Tuned to hold AA on both paper and panel. */
+  --fr-dim: oklch(0.4783 0.0069 250);
+  /*
+    Tertiary text: row numbers, column headings, struck-out steps. Light
+    enough to recede, dark enough to still be read — it holds AA on both
+    paper and the white panels, which is where it actually gets used.
+  */
+  --fr-faint: oklch(0.5347 0.006 250);
+  --fr-rule: oklch(0.8574 0.0035 250);
+
+  /*
+    The one signal colour. Used for resistance: friction points, warnings,
+    counts, the marks an inspector leaves. Never used decoratively.
+    `hazard` is the fill; `hazard-ink` is the darker text-safe sibling.
+  */
+  --fr-hazard: oklch(0.6216 0.2158 33.5);
+  --fr-hazard-ink: oklch(0.5177 0.1938 33.5);
+
+  --fr-void: oklch(0.1613 0.0074 250);
+  --fr-void-dim: oklch(0.7178 0.0053 250);
+  --fr-void-rule: oklch(0.3202 0.0074 250);
+}
+
+@layer base {
+  * {
+    border-color: var(--fr-rule);
+    /* No radius anywhere. This is a drawing, not a card. */
+    border-radius: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Section anchors clear the sticky masthead. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--fr-paper);
+    color: var(--fr-ink);
+    font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--fr-hazard);
+    color: var(--fr-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--fr-hazard-ink);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    text-wrap: balance;
+  }
+}
+
+/* ---------------------------------------------------------------- type ---
+   Named so they can never be confused with Tailwind's `text-*` scale, which
+   means tailwind-merge needs no configuration to keep them intact.
+*/
+
+@utility fr-mega {
+  font-size: clamp(2.25rem, 1.15rem + 4.3vw, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+@utility fr-title {
+  font-size: clamp(1.875rem, 1.1rem + 3.1vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.033em;
+  font-weight: 700;
+}
+
+@utility fr-sub {
+  font-size: clamp(1.3125rem, 1.08rem + 1vw, 1.875rem);
+  line-height: 1.14;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+@utility fr-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.3125rem);
+  line-height: 1.55;
+  letter-spacing: -0.008em;
+}
+
+/* The mono voice: section numbers, labels, measurements, annotations. */
+@utility fr-label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility fr-meta {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+@utility fr-num {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------- devices ---
+   The recurring marks of the system: measured rules, hazard tape, and the
+   struck-through step.
+*/
+
+/* The 1px grid the whole page is pinned to. */
+@utility fr-hairline {
+  border-top: 1px solid var(--fr-rule);
+}
+
+@utility fr-ink-rule {
+  border-top: 1px solid var(--fr-ink);
+}
+
+/* Diagonal hazard banding, for blocks that mark resistance. */
+@utility fr-tape {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--fr-hazard) 0 0.5rem,
+    transparent 0.5rem 1rem
+  );
+}
+
+/* A deleted step: ruled through, dimmed, but still legible — the point is
+   that you can see what was removed. */
+@utility fr-struck {
+  text-decoration: line-through;
+  text-decoration-color: var(--fr-hazard);
+  text-decoration-thickness: 2px;
+  color: var(--fr-faint);
+}
+
+/* Faint engineering graph paper, for surfaces that should read as a drawing
+   surface rather than a card. */
+@utility fr-graph {
+  background-image:
+    linear-gradient(to right, var(--fr-rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--fr-rule) 1px, transparent 1px);
+  background-size: 1.5rem 1.5rem;
+  background-position: -1px -1px;
+}
