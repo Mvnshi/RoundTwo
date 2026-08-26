@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 import { Wordmark } from "@/components/layout/brand-mark";
-import { SharedLayoutBg } from "@/components/motion/shared-layout-bg";
+import { PrimaryNav } from "@/components/layout/primary-nav";
 import { AuditCta } from "@/components/lead/audit-cta";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,27 +44,7 @@ export function SiteHeader() {
         <div className="flex h-14 min-w-0 flex-1 items-center justify-between gap-6 rounded-full bg-card ring-1 ring-hairline pr-2 pl-4 sm:pl-6 lg:flex-none lg:gap-10 lg:pr-6">
           <Wordmark />
 
-          <nav aria-label="Primary" className="hidden lg:block">
-            <SharedLayoutBg
-              as="ul"
-              inset={0}
-              // The component defaults to a vertical sidebar list; these
-              // override its flex-direction and full-width for a horizontal nav.
-              className="w-auto flex-row items-center gap-1"
-              pillClassName="rounded-full bg-secondary"
-            >
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="block rounded-full px-3.5 py-2 text-[0.9375rem] text-foreground/75 transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </SharedLayoutBg>
-          </nav>
+          <PrimaryNav />
 
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger

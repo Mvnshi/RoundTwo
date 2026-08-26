@@ -181,6 +181,7 @@ export function Calculator() {
             <NumberTicker
               value={Math.round(results.monthlyRevenue)}
               prefix="$"
+              prefixClassName="self-start text-[1.75rem] tracking-[-0.02em] sm:text-[2rem]"
               locale
               blur
               className="text-[2.5rem] leading-none font-medium tracking-[-0.035em] text-brand sm:text-[3rem]"

@@ -22,10 +22,12 @@ export interface NumberTickerProps {
   blur?: boolean;
   className?: string;
   digitClassName?: string;
-  /** Insert locale group separators (commas). Server-component safe. */
+  /** Insert `en-US` group separators (commas). Server-component safe. */
   locale?: boolean;
   /** Custom formatter. Client-only — server components must use `locale` instead. */
   format?: (value: number) => string;
+  /** Class for the prefix glyph, so it can be sized apart from the digits. */
+  prefixClassName?: string;
 }
 
 const DIGIT_HEIGHT_EM = 1.1;
@@ -44,6 +46,7 @@ export function NumberTicker({
   digitClassName,
   locale,
   format,
+  prefixClassName,
 }: NumberTickerProps) {
   const containerRef = useRef<HTMLSpanElement>(null);
   const inView = useInView(containerRef, { once: true, amount: 0.6 });
@@ -52,12 +55,17 @@ export function NumberTicker({
   // latches, so the value derives cleanly with no cascading render.
   const armed = !startOnView || inView;
 
+  // Local adaptation: upstream calls toLocaleString() with no argument. This
+  // component is server-rendered before it hydrates, and Node's default ICU
+  // locale need not match the browser's — a different group separator across
+  // the two is a hydration mismatch. The site formats money as en-US, so the
+  // ticker is pinned to match.
   const text = useMemo(() => {
     const rounded = Math.round(value);
     const formatted = format
       ? format(rounded)
       : locale
-        ? rounded.toLocaleString()
+        ? rounded.toLocaleString("en-US")
         : rounded.toString();
     return pad ? formatted.padStart(pad, "0") : formatted;
   }, [value, pad, format, locale]);
@@ -89,7 +97,7 @@ export function NumberTicker({
     >
       <span className="sr-only">{readableText}</span>
       <span aria-hidden="true" className="inline-flex items-center">
-        {prefix ? <span>{prefix}</span> : null}
+        {prefix ? <span className={prefixClassName}>{prefix}</span> : null}
         {glyphs.map(({ char, id }, i) => {
           const isDigit = /\d/.test(char);
           if (!isDigit) {
