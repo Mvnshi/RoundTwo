@@ -5,7 +5,7 @@ import { Check, Link2, RotateCcw } from "lucide-react";
 
 import { ScorecardLeadForm } from "@/components/scorecard/scorecard-lead-form";
 import { Button } from "@/components/ui/button";
-import { NumberTicker } from "@/components/ui/number-ticker";
+import { NumberTicker } from "@/components/motion/number-ticker";
 import { track } from "@/lib/analytics";
 import { benchmarks, modellingNotes } from "@/lib/benchmarks";
 import { leakMeta, type Answers, type ScorecardResult } from "@/lib/scorecard";
@@ -50,11 +50,10 @@ export function ScorecardResultView({
           <p className="label-mono text-background/60">Your leak score</p>
           <div className="mt-6 flex items-end gap-2">
             <NumberTicker
-              aria-hidden
               value={result.score}
-              className="text-[4.5rem] leading-none font-medium tracking-[-0.05em] text-brand tabular-nums"
+              blur
+              className="text-[4.5rem] leading-none font-medium tracking-[-0.05em] text-brand"
             />
-            <span className="sr-only">{result.score} out of 100</span>
             <span className="pb-2 text-[1.25rem] text-background/50">/ 100</span>
           </div>
           <p className="mt-5 text-[1.0625rem] font-medium text-brand">{result.band.label}</p>

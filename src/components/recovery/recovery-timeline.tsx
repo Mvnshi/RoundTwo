@@ -1,5 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 
+import { RecoveryStatusBadge } from "@/components/recovery/recovery-status-badge";
+
 import { exampleOpportunity, recoverySteps, type RecoveryStatus } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -31,10 +33,7 @@ export function RecoveryTimeline({ className }: { className?: string }) {
         <figcaption className="label-mono text-muted-foreground">
           Example recovery
         </figcaption>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand px-2.5 py-1 label-mono text-brand-foreground">
-          <span className="size-1.5 rounded-full bg-brand-foreground" aria-hidden />
-          Won back
-        </span>
+        <RecoveryStatusBadge />
       </div>
 
       <div className="relative flex items-start justify-between gap-4 border-b border-hairline px-6 py-5 sm:px-7">
