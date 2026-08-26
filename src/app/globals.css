@@ -89,13 +89,13 @@
   --secondary-foreground: oklch(0.2977 0.0076 128.75);
 
   --muted: oklch(0.8918 0.0183 89.37);
-  --muted-foreground: oklch(0.5031 0.0096 121.8); /* #63655F stone */
+  --muted-foreground: oklch(0.487 0.0096 121.8); /* #5E605B stone — holds AA on sandstone panels, not just cream */
 
   /* shadcn's --accent is the neutral hover token, intentionally NOT the brand. */
   --accent: oklch(0.9219 0.0177 91);
   --accent-foreground: oklch(0.2977 0.0076 128.75);
 
-  --destructive: oklch(0.5579 0.1717 31.41); /* #C4402C */
+  --destructive: oklch(0.5358 0.1717 31.41); /* #BC3825, matched to --lost */
 
   --hairline: oklch(0.8727 0.0014 106.43); /* #D5D5D4 */
   --border: oklch(0.8727 0.0014 106.43);
@@ -115,7 +115,7 @@
   --brand-soft: oklch(0.9414 0.2048 120.69 / 20%);
 
   --recovered: oklch(0.4769 0.0881 153.61); /* #2F6B45 */
-  --lost: oklch(0.5579 0.1717 31.41); /* #C4402C, readable on cream */
+  --lost: oklch(0.5358 0.1717 31.41); /* #BC3825 — AA on cream and on the lost-soft/15 tint */
   --lost-soft: oklch(0.7158 0.1783 29.77); /* #FF705D coral, fills only */
 
   /* Sticker-soft: generous rounding is the signature of this system. */

@@ -12,7 +12,7 @@ import {
   InputGroupText,
 } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
-import { NumberTicker } from "@/components/ui/number-ticker";
+import { NumberTicker } from "@/components/motion/number-ticker";
 import { Slider } from "@/components/ui/slider";
 import { track } from "@/lib/analytics";
 import { cta } from "@/lib/site";
@@ -178,15 +178,13 @@ export function Calculator() {
           <p className="label-mono text-background/60">Illustrative recovered revenue</p>
 
           <p className="mt-4 flex flex-wrap items-baseline gap-x-1 gap-y-1 text-background">
-            <span className="text-[1.75rem] font-medium tracking-[-0.02em] text-brand sm:text-[2rem]">
-              $
-            </span>
             <NumberTicker
-              aria-hidden
               value={Math.round(results.monthlyRevenue)}
-              className="text-[2.5rem] leading-none font-medium tracking-[-0.035em] text-brand tabular-nums sm:text-[3rem]"
+              prefix="$"
+              locale
+              blur
+              className="text-[2.5rem] leading-none font-medium tracking-[-0.035em] text-brand sm:text-[3rem]"
             />
-            <span className="sr-only">{money.format(results.monthlyRevenue)}</span>
             <span className="ml-1 text-[0.9375rem] text-background/60">/ month</span>
           </p>
 
