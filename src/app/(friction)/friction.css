@@ -209,3 +209,41 @@
   background-size: 1.5rem 1.5rem;
   background-position: -1px -1px;
 }
+
+/* ------------------------------------------------------------ vendored ---
+   Support for the beui components under components/friction/ui. Their
+   defaults assume a rounded, primary-coloured system; here they are square
+   and hazard-marked.
+*/
+
+:root {
+  /* HoldActionButton clips its fill to this. Square, like everything else. */
+  --hold-radius: 0px;
+}
+
+/* Marquee tracks. The component expects these keyframes to exist. */
+@keyframes fr-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes fr-marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+@utility animate-marquee {
+  animation: fr-marquee linear infinite;
+}
+
+@utility animate-marquee-vertical {
+  animation: fr-marquee-vertical linear infinite;
+}

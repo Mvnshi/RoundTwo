@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
+import { FrictionIs } from "@/components/friction/friction-is";
 import { FrictionLab } from "@/components/friction/friction-lab";
+import { GoodFrictionDemo } from "@/components/friction/good-friction-demo";
 import { GradientCompare } from "@/components/friction/gradient-compare";
 import { InquiryForm } from "@/components/friction/inquiry-form";
 import { Masthead } from "@/components/friction/masthead";
+import { TaxonomyBand } from "@/components/friction/taxonomy-band";
 import { Frame, Lede, Section, Statement } from "@/components/friction/section";
 import {
   auditDomains,
@@ -15,7 +18,6 @@ import {
   lexicon,
   notEffort,
   questions,
-  taxonomy,
 } from "@/lib/friction/content";
 import { VERDICTS } from "@/lib/friction/score";
 import { siteUrl } from "@/lib/site";
@@ -85,9 +87,13 @@ export default function FrictionPage() {
 
               <div className="flex flex-col justify-start lg:pt-3">
                 <div className="border-t border-ink pt-5">
-                  <p className="fr-lead max-w-md">
-                    Friction is the distance between intention and action. It is
-                    everything that makes an outcome less likely to happen.
+                  <p className="fr-sub">
+                    Friction is{" "}
+                    <FrictionIs className="text-hazard-ink" />
+                  </p>
+                  <p className="fr-lead mt-4 max-w-md">
+                    It is the distance between intention and action — everything
+                    that makes an outcome less likely to happen.
                   </p>
                   <p className="fr-lead mt-4 max-w-md text-dim">
                     People overestimate motivation and underestimate
@@ -148,31 +154,21 @@ export default function FrictionPage() {
         </Section>
 
         {/* ------------------------------------------------ 02 taxonomy -- */}
-        <Section n="02" label="What counts">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-            <div>
-              <Statement>Friction is not one thing.</Statement>
-              <Lede>
-                It is all of this, and it is almost never any single one of them
-                that stops you. Each is small. That is exactly why they survive.
-              </Lede>
-            </div>
-
-            <ul className="flex flex-wrap gap-1.5 self-start">
-              {taxonomy.map((item, i) => (
-                <li
-                  key={item}
-                  className="flex items-baseline gap-2 border border-rule bg-panel px-2.5 py-1.5"
-                >
-                  <span className="fr-num text-[0.625rem] text-faint">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[0.8125rem] font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
+        <Section n="02" label="What counts" bodyClassName="py-12 sm:py-14">
+          <div className="max-w-3xl">
+            <Statement>Friction is not one thing.</Statement>
+            <Lede>
+              It is all of this, and it is almost never any single one of them
+              that stops you. Each is small. That is exactly why they survive.
+            </Lede>
           </div>
         </Section>
+
+        {/* Full bleed, because the list should run past the edges of the page
+            rather than sit tidily inside a column. */}
+        <div className="border-t border-ink bg-paper py-5">
+          <TaxonomyBand />
+        </div>
 
         {/* ------------------------------------------------ 03 gradient -- */}
         <Section n="03" label="The friction gradient">
@@ -195,15 +191,32 @@ export default function FrictionPage() {
           </p>
         </Section>
 
-        {/* ----------------------------------------------- 04 principle -- */}
-        <Section n="04" label="The principle" id="principle">
+        {/* ------------------------------------------- 04 good friction -- */}
+        <Section n="04" label="Good friction" id="good-friction">
+          <Statement>
+            A frictionless world would be horrifying.
+          </Statement>
+          <Lede>
+            Instant gambling. Instant spending. Instant irreversible decisions.
+            The goal was never to remove resistance everywhere — it was to put
+            it where it protects something. Three actions below. Notice which
+            one you did without deciding.
+          </Lede>
+
+          <div className="mt-12">
+            <GoodFrictionDemo />
+          </div>
+        </Section>
+
+        {/* ----------------------------------------------- 05 principle -- */}
+        <Section n="05" label="The principle" id="principle">
           <Statement>
             Make desirable actions easier. Make undesirable actions harder.
           </Statement>
           <Lede>
-            A frictionless world would be horrifying. Instant gambling. Instant
-            spending. Instant irreversible decisions. Removing resistance
-            everywhere is not the goal — putting it in the right place is.
+            Every friction point resolves to one of three moves. Most systems
+            only ever reach for the first, which is why so many of them end up
+            frictionless in exactly the places that needed a pause.
           </Lede>
 
           <div className="mt-12 grid gap-px border border-ink bg-rule sm:grid-cols-3">
@@ -282,7 +295,7 @@ export default function FrictionPage() {
         </Section>
 
         {/* --------------------------------------------- 05 engineering -- */}
-        <Section n="05" label="Friction engineering">
+        <Section n="06" label="Friction engineering">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
               <Statement>
@@ -322,7 +335,7 @@ export default function FrictionPage() {
         </Section>
 
         {/* --------------------------------------------------- 06 laws -- */}
-        <Section n="06" label="The laws of friction" id="laws" tone="void">
+        <Section n="07" label="The laws of friction" id="laws" tone="void">
           <Statement>Observed, not invented.</Statement>
           <p className="fr-lead mt-5 max-w-2xl text-void-dim">
             A working set. Some of these will be refined and some will be
@@ -346,7 +359,7 @@ export default function FrictionPage() {
         </Section>
 
         {/* ------------------------------------------------ 07 lexicon -- */}
-        <Section n="07" label="The lexicon" id="lexicon">
+        <Section n="08" label="The lexicon" id="lexicon">
           <Statement>Language creates categories.</Statement>
           <Lede>
             Not marketing vocabulary. Words that let a team point at something
@@ -365,7 +378,7 @@ export default function FrictionPage() {
         </Section>
 
         {/* -------------------------------------------------- 08 audit -- */}
-        <Section n="08" label="The friction audit" id="audit">
+        <Section n="09" label="The friction audit" id="audit">
           <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
             <div>
               <Statement>
@@ -435,7 +448,7 @@ export default function FrictionPage() {
         </Section>
 
         {/* ----------------------------------------------- 09 flywheel -- */}
-        <Section n="09" label="How the work compounds">
+        <Section n="10" label="How the work compounds">
           <Statement>Observe. Document. Measure. Publish. Repeat.</Statement>
           <Lede>
             Research creates authority. Authority surfaces the expensive
