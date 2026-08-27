@@ -1,3 +1,4 @@
+import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { cn } from "@/lib/utils";
 
 /** Page gutter. Wide, because the grid should feel like a spread. */
@@ -26,6 +27,7 @@ export function Section({
   children,
   tone = "paper",
   className,
+  bodyClassName,
 }: {
   n: string;
   label: string;
@@ -33,6 +35,9 @@ export function Section({
   children: React.ReactNode;
   tone?: "paper" | "void";
   className?: string;
+  /** Override the default vertical rhythm — used where a section hands off to
+   *  a full-bleed element directly beneath it. */
+  bodyClassName?: string;
 }) {
   const dark = tone === "void";
   return (
@@ -58,7 +63,7 @@ export function Section({
             {label}
           </span>
         </div>
-        <div className="py-14 sm:py-20">{children}</div>
+        <div className={cn("py-14 sm:py-20", bodyClassName)}>{children}</div>
       </Frame>
     </section>
   );
@@ -73,9 +78,13 @@ export function Statement({
   className?: string;
 }) {
   return (
-    <h2 className={cn("fr-title max-w-4xl text-balance", className)}>
-      {children}
-    </h2>
+    // The heading element stays real inside the wrapper, so the document
+    // outline is identical whether or not the reveal runs.
+    <ScrollReveal y={14} blur={4} duration={0.5}>
+      <h2 className={cn("fr-title max-w-4xl text-balance", className)}>
+        {children}
+      </h2>
+    </ScrollReveal>
   );
 }
 
