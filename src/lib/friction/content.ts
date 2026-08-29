@@ -528,3 +528,33 @@ export const flywheel = [
   { step: "Publish", note: "Spread the lens." },
   { step: "Collect", note: "Receive the next example." },
 ] as const;
+
+/* ---------------------------------------------------------------- moments */
+
+/** The four places an intention most reliably dies on its way to an action. */
+export const moments = [
+  {
+    n: "01",
+    tag: "The extra step",
+    title: "Nothing here is hard.",
+    body: "There is just one more of it than anyone will do. No single step is the problem, which is precisely why none of them ever gets removed.",
+  },
+  {
+    n: "02",
+    tag: "The rebuilt context",
+    title: "The task took three minutes.",
+    body: "Finding out enough to start it took twenty. Modern software created enormous amounts of information and then scattered it across a dozen systems.",
+  },
+  {
+    n: "03",
+    tag: "The needless decision",
+    title: "A choice nobody needed to make.",
+    body: "Every decision stops the brain to calculate, and every calculation is a chance to stop entirely. Most recurring decisions should have been a default.",
+  },
+  {
+    n: "04",
+    tag: "The wait",
+    title: "Nothing is happening, visibly.",
+    body: "Invisible waiting always feels longer than visible progress. A queue with a position is a different experience from a queue without one.",
+  },
+] as const;

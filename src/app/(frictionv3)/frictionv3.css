@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+  Friction Company — v3.
+
+  Built on the same design system as the other site in this repo, deliberately:
+  a warm paper ground, a single controlled accent, sticker-soft rounding, a
+  mono voice for labels, and one large artefact sitting on a full-bleed colour
+  field. Same ideology, different brand.
+
+  It reuses the *semantic* token names (`--background`, `--brand`, `--radius`)
+  rather than inventing new ones, which is what lets every shadcn component in
+  @/components/ui inherit this styling without a single override. The two
+  stylesheets never meet: each site is its own root layout, so only one is ever
+  loaded on a document.
+
+  Where the other brand is cream and chartreuse, this one is warm plaster and
+  tangerine, and it sets its display face in a serif — an editorial voice for a
+  company whose product is investigation.
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-instrument-serif);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-field: var(--brand-field);
+  --color-surface: var(--surface);
+  --color-hairline: var(--hairline);
+
+  /* Semantic pair for the argument this site makes. */
+  --color-resist: var(--resist);
+  --color-resist-soft: var(--resist-soft);
+  --color-clear: var(--clear);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --text-display: clamp(2.75rem, 1.3rem + 6.2vw, 6rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-h2: clamp(2rem, 1.15rem + 3.6vw, 3.5rem);
+  --text-h2--line-height: 1.02;
+  --text-h2--letter-spacing: -0.022em;
+
+  --text-h3: clamp(1.25rem, 1.09rem + 0.7vw, 1.5rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --text-lead--line-height: 1.55;
+  --text-lead--letter-spacing: -0.008em;
+}
+
+:root {
+  --background: oklch(0.9585 0.0095 70); /* #F5F0E8 warm plaster */
+  --foreground: oklch(0.2555 0.0122 55); /* #2E2721 warm ink */
+
+  /* Elevation is a surface stack, not a shadow: plaster -> white. */
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+  --surface: oklch(1 0 0);
+
+  --primary: oklch(0.2555 0.0122 55);
+  --primary-foreground: oklch(0.9585 0.0095 70);
+
+  --secondary: oklch(0.8905 0.0155 72); /* #E4DCD0 warm taupe */
+  --secondary-foreground: oklch(0.2555 0.0122 55);
+
+  --muted: oklch(0.8905 0.0155 72);
+  --muted-foreground: oklch(0.4835 0.0128 58); /* holds AA on taupe, not just plaster */
+
+  /* shadcn's --accent is the neutral hover token, intentionally NOT the brand. */
+  --accent: oklch(0.9245 0.0105 72);
+  --accent-foreground: oklch(0.2555 0.0122 55);
+
+  --destructive: oklch(0.5358 0.1717 31.41);
+
+  --hairline: oklch(0.8735 0.004 70);
+  --border: oklch(0.8735 0.004 70);
+  --border-strong: oklch(0.8905 0.0155 72);
+  --input: oklch(0.8735 0.004 70);
+  --ring: oklch(0.2555 0.0122 55);
+
+  /* Tangerine. Small accents only: CTAs, the mark under a headline, a live dot. */
+  --brand: oklch(0.6647 0.2118 38);
+  --brand-strong: oklch(0.6188 0.2166 36);
+  /*
+    Large colour fields take a calmer sibling. At full bleed the hot tangerine
+    reads as a traffic cone; this holds the same hue at lower chroma so the
+    accent still pops against it and ink stays readable on top.
+  */
+  --brand-field: oklch(0.8121 0.1189 62);
+  --brand-foreground: oklch(0.2555 0.0122 55);
+  --brand-soft: oklch(0.6647 0.2118 38 / 16%);
+
+  /* The two states this company talks about. */
+  --resist: oklch(0.5177 0.1938 33.5); /* resistance, text-safe */
+  --resist-soft: oklch(0.7158 0.1783 29.77); /* fills only */
+  --clear: oklch(0.4769 0.0881 153.61); /* cleared path */
+
+  /* Sticker-soft: generous rounding is the signature of this system. */
+  --radius: 1.75rem;
+
+  /* HoldActionButton clips its sweeping fill to this. Fully round here. */
+  --hold-radius: 9999px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: var(--background);
+  }
+
+  /*
+    The editorial voice: headings are set in the serif at its single weight,
+    which is what keeps a 6rem headline from looking like a slide title.
+  */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-instrument-serif), ui-serif, Georgia, serif;
+    font-weight: 400;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility label-mono {
+  @apply font-mono text-[0.6875rem] font-medium tracking-[0.14em] uppercase;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+  Baseline-anchored emphasis rule. Real text decoration, so the bar sits the
+  same distance under every wrapped line — a background gradient cannot.
+*/
+@utility marker-rule {
+  color: inherit;
+  background: transparent;
+  text-decoration-line: underline;
+  text-decoration-color: var(--marker-color, var(--brand));
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.14em;
+  text-decoration-skip-ink: none;
+}
+
+/* A struck step: still legible, because seeing what was removed is the point. */
+@utility struck {
+  text-decoration: line-through;
+  text-decoration-color: var(--resist);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.1em;
+}
