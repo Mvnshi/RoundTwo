@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       shares no navigation, template or metadata with anything above.
     */
     { url: `${siteUrl}/friction`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/frictionv3`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/terms`, lastModified, changeFrequency: "yearly", priority: 0.3 },
   ];
