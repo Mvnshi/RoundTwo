@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { GoodFriction } from "@/components/f3/good-friction";
 import { SiteHeader } from "@/components/f3/header";
 import { InquiryForm } from "@/components/f3/inquiry-form";
+import { NoiseTexture } from "@/components/f3/mui/noise-texture";
 import { PathCard } from "@/components/f3/path-card";
 import {
   Container,
@@ -12,6 +13,7 @@ import {
   SectionHeading,
 } from "@/components/f3/primitives";
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
+import { GridPattern } from "@/components/ui/grid-pattern";
 import {
   Accordion,
   AccordionContent,
@@ -80,11 +82,21 @@ export default function FrictionV3Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div id="top" className="bg-brand-field">
+      <div id="top" className="relative bg-brand-field">
+        {/* Grain over the colour field. Flat tangerine reads as a print error;
+            a little tooth reads as paper. */}
+        <NoiseTexture
+          aria-hidden
+          frequency={0.72}
+          octaves={4}
+          slope={0.2}
+          noiseOpacity={0.5}
+          className="opacity-[0.28] mix-blend-multiply"
+        />
         <SiteHeader />
 
         {/* ------------------------------------------------------- hero -- */}
-        <section className="relative">
+        <section className="relative z-10">
           <Container className="pt-10 pb-28 sm:pt-14 sm:pb-36 lg:pb-40">
             <div className="flex flex-col items-center text-center">
               <p className="label-mono flex items-center gap-2 rounded-full bg-card px-4 py-2 text-foreground">
@@ -300,7 +312,15 @@ export default function FrictionV3Page() {
 
         {/* ---------------------------------------------------- 05 laws -- */}
         <Section id="laws" className="pt-0">
-          <div className="rounded-lg bg-foreground px-7 py-14 text-background sm:px-12 sm:py-18">
+          <div className="relative overflow-hidden rounded-lg bg-foreground px-7 py-14 text-background sm:px-12 sm:py-18">
+            <GridPattern
+              aria-hidden
+              width={44}
+              height={44}
+              strokeDasharray="3 5"
+              className="absolute inset-0 h-full w-full stroke-background/10 [mask-image:radial-gradient(70%_60%_at_50%_0%,#000,transparent)]"
+            />
+            <div className="relative">
             <ScrollReveal y={18} blur={5}>
               <Eyebrow className="text-background/55">The laws of friction</Eyebrow>
               <h2 className="mt-4 max-w-2xl text-h2">Observed, not invented.</h2>
@@ -326,6 +346,7 @@ export default function FrictionV3Page() {
                 </li>
               ))}
             </ol>
+            </div>
           </div>
         </Section>
 

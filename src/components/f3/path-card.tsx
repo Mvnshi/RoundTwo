@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Check, Minus } from "lucide-react";
 
+import { BorderBeam } from "@/components/f3/mui/border-beam";
 import { NumberTicker } from "@/components/motion/number-ticker";
 import { paths } from "@/lib/friction/content";
 import { STEP_KINDS, VERDICTS, band, scorePath } from "@/lib/friction/score";
@@ -42,7 +43,16 @@ export function PathCard() {
     });
 
   return (
-    <div className="overflow-hidden rounded-lg bg-card ring-1 ring-hairline">
+    <div className="relative overflow-hidden rounded-lg bg-card ring-1 ring-hairline">
+      {/* A slow beam around the card. This is the only object on the page you
+          can operate, and nothing else was saying so. */}
+      <BorderBeam
+        size={140}
+        duration={9}
+        borderWidth={1.5}
+        colorFrom="transparent"
+        colorTo="var(--brand)"
+      />
       <div className="flex items-center justify-between gap-4 border-b border-hairline px-6 py-5 sm:px-7">
         <div className="min-w-0">
           <p className="label-mono text-muted-foreground">Example path</p>
